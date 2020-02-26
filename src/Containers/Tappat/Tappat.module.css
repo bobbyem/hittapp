@@ -1,0 +1,10 @@
+.SearchBar {
+    width: 100%;
+}
+
+.SearchBar input{
+    width: 80%;
+    height: 30px;
+    margin-left: 10%;
+    font-size: large;
+}
