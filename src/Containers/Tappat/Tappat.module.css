@@ -1,10 +1,15 @@
-.SearchBar {
+.Tappat {
     width: 100%;
+    display: flex;
+    flex-flow: row;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
-.SearchBar input{
+.SearchBar {
     width: 80%;
-    height: 30px;
-    margin-left: 10%;
-    font-size: large;
+    font-size: 25px;
+    margin: 10px 0;
+
 }
+

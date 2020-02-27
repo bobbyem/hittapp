@@ -6,3 +6,7 @@
     display: flex;
     flex-flow: column;
 }
+
+.Hide {
+    display: none;
+}

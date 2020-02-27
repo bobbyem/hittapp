@@ -1,0 +1,16 @@
+.Object {
+    background-color: white;
+    width: 25%;
+    margin: 10px;
+    border: grey 2px solid;
+    cursor: pointer;
+}
+
+.Object img {
+    width: 50%;
+
+}
+
+.Object :hover{
+    background-color: rgb(169, 192, 255);
+}
