@@ -11,7 +11,7 @@ export default class Tappat extends PureComponent {
     state ={
         placeholder: "Vad har du tappat?",
         query: null,
-        foundObject: null,
+        foundObjects: null,
         queryMatch: null
     }
 
@@ -22,8 +22,8 @@ export default class Tappat extends PureComponent {
         db.collection("hittat").get()
         .then(querySnapshot => {
             const data = querySnapshot.docs.map(doc => doc.data());
-            this.setState({foundObject: data});
-            console.log(this.state.foundObject)
+            this.setState({foundObjects: data});
+            console.log(this.state.foundObjects)
           });
           
     }
@@ -39,10 +39,10 @@ export default class Tappat extends PureComponent {
         console.log(this.state.query)
         event.preventDefault();
         let query = this.state.query;
-        let matchIndex = this.state.foundObject.findIndex(function (object, index){
+        let matchIndex = this.state.foundObjects.findIndex(function (object, index){
             return object.title.toLowerCase() === query;
         });
-        if (matchIndex !== -1) { 
+        if (matchIndex >= 0) { 
             this.setState({queryMatch: matchIndex});
         };
         console.log(matchIndex);
@@ -55,7 +55,7 @@ export default class Tappat extends PureComponent {
         if (this.state.queryMatch) {
             //There is a bug here, it won´t return index 0
             let index = this.state.queryMatch;
-            let match = this.state.foundObject[index];
+            let match = this.state.foundObjects[index];
             object = <Object key={match.title} title={match.title} 
                 amount={match.amount}
                 description={match.description}
@@ -76,8 +76,3 @@ export default class Tappat extends PureComponent {
         )
     }
 }
-
-// {!this.state.foundObject || !this.state.query ? object : object = this.state.foundObject.map(key => (<Object key={key.title} title={key.title} 
-//     amount={key.amount}
-//     description={key.description}
-//     url={key.url}/>)) }
