@@ -6,6 +6,7 @@ const db = firebase.firestore();
 
 class hittat extends Component {
     state = {
+        uploadSuccess: false,
         requiredFilled: false,
         input: {
             title: null,
@@ -22,12 +23,14 @@ class hittat extends Component {
     }
     componentDidMount() {
         document.title="hittApp";
+        console.log("Coponent did mount in hittat.js");
     }
+
 
     publishHandler = (event) => {
         event.preventDefault();
-        console.log(this.state.input);
-        let url = "";
+        //Grab a state reference
+        let inputRef = {...this.state.input};
         let file = this.state.input.image;
         let storageRef = firebase.storage().ref();
         let uploadTask = storageRef.child("uploads/" +file.name).put(file);
@@ -41,20 +44,20 @@ class hittat extends Component {
             },
             function(complete) {
                 uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                    console.log(downloadURL);
-                    // Here is where I wish I could store the downloadURL into the url variable declared earlier
-                    
+
+                    let url = downloadURL;
+                    // Post data to firestore
+                    db.collection("hittat").doc().set({
+                        title: inputRef.title,
+                        amount: inputRef.amount,
+                        description: inputRef.description,
+                        url: url
+                    });
+                    console.log("Upload Success")
                 });
             }
             );
-        
-        // Post data to firebase.
-        db.collection("hittat").doc().set({
-            title: this.state.input.title,
-            amount: this.state.input.amount,
-            description: this.state.input.description
-        });
-        
+    this.setState({uploadSuccess: true});
     };
 
     titlehandler = (event) => {
@@ -105,27 +108,34 @@ class hittat extends Component {
 
     render () {
 
+        if (!this.state.uploadSuccess) {
+            return (
+                <div className={classes.Hittat}>
+                    <form onSubmit={this.publishHandler}>
+                        <h1>Vad har du hittat?</h1>
+                        <label>Titel </label>
+                        <input type="text" placeholder={this.state.placeholder.title} onChange={this.titlehandler} required/>
+                        <br/>
+                        <label>Antal</label>
+                        <input type="number" placeholder={this.state.placeholder.amount} onChange={this.amountHandler} required/>
+                        <br/>
+                        <label>Beskrivning</label>
+                        <textarea type="text" placeholder={this.state.placeholder.description} onChange={this.descriptionHandler} required/>
+                        <br/>
+                        <label>Bild</label>
+                        <input type="file" accept="image/*" required onChange={this.fileChangedHandler}/>
+                        <br/>
+                        <button onSubmit={this.publishHandler}>Publicera</button>
+                    </form>
+                </div>
+            )
+        };
+            return (
+                <div>
+                <h1>Tack för ditt bidrag!</h1>
+                </div>
+            );
 
-        return (
-            <div className={classes.Hittat}>
-                <form onSubmit={this.publishHandler}>
-                    <h1>Vad har du hittat?</h1>
-                    <label>Titel </label>
-                    <input type="text" placeholder={this.state.placeholder.title} onChange={this.titlehandler} required/>
-                    <br/>
-                    <label>Antal</label>
-                    <input type="number" placeholder={this.state.placeholder.amount} onChange={this.amountHandler} required/>
-                    <br/>
-                    <label>Beskrivning</label>
-                    <textarea type="text" placeholder={this.state.placeholder.description} onChange={this.descriptionHandler} required/>
-                    <br/>
-                    <label>Bild</label>
-                    <input type="file" accept="image/*" required onChange={this.fileChangedHandler}/>
-                    <br/>
-                    <button onSubmit={this.publishHandler}>Publicera</button>
-                </form>
-            </div>
-        )
     }
 }
 

@@ -56,7 +56,7 @@ export default class Tappat extends PureComponent {
             //There is a bug here, it won´t return index 0
             let index = this.state.queryMatch;
             let match = this.state.foundObjects[index];
-            object = <Object key={match.title} title={match.title} 
+            object = <Object className={classes.Object} key={match.title} title={match.title} 
                 amount={match.amount}
                 description={match.description}
                 url={match.url}/>

@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./Header.module.css";
+import logo from "../../../img/logo.png";
 
 const header = (props) => (
     <div className={classes.Header}>
-    <h1>hittApp</h1>
+    <img src={logo} alt="Hittapp logo" className={classes.Logo}/>
     {props.children}</div>
 );
 

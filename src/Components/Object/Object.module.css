@@ -2,7 +2,7 @@
     background-color: white;
     width: 25%;
     margin: 10px;
-    border: grey 2px solid;
+    border: rgba(128, 128, 128, 0.198) 2px solid;
     cursor: pointer;
 }
 
@@ -11,6 +11,6 @@
 
 }
 
-.Object :hover{
-    background-color: rgb(169, 192, 255);
-}
+/* .Object :hover{
+    background-color: #0dc5c1;
+} */

@@ -1,12 +1,14 @@
 .Footer {
-    background-color: rgb(236, 236, 236);
-    position: fixed;
+    background-color: #0dc5c1;
+    color: rgb(219, 219, 219);
     bottom: 0;
+    position: absolute;
     height: 40px;
     width: 100%;
     display: flex;
     flex-flow: row;
-
+    box-sizing: border-box;
+    margin-top: 20px;
 }
 
 .FooterLinks {
