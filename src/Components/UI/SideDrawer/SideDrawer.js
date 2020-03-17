@@ -2,8 +2,7 @@ import React from "react";
 import classes from "./SideDrawer.module.css";
 
 const sideDrawer = (props) => (
-    <div className={classes.SideDrawer, classes.Hide}>
-        <h3>SideDrawer</h3>
+    <div className={classes.SideDrawer} style={{height: props.height}}>
         <ul>
             <li>Hittat</li>
             <li>Tappat</li>

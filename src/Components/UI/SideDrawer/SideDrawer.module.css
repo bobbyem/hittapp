@@ -1,12 +1,35 @@
 .SideDrawer {
-    background-color: blueviolet;
+    background-color: #0dc5c1;
     position: fixed;
-    width: 250px;
-    height: 100%;
+    width: 200px;
     display: flex;
     flex-flow: column;
+    align-items: flex-start;
+    color: white;
+    position: relative;
+    transition: 0.5s;
+    z-index: 999;
 }
 
-.Hide {
-    display: none;
+ul {
+    list-style: none;
+    margin: 0;
+    padding:0;
+    margin-top: 5px;
+}
+
+li {
+    font-size: 1.5rem;
+    border: 1px solid transparent;
+    margin-left: 30px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+li:hover {
+    transition: 0.5s;
+    border-bottom: 1px solid white;
+    color: rgb(246, 250, 188);
+    
+    
 }

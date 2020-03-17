@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classes from "./Hittat.module.css";
-import storage from "../../Firebase";
 import firebase from "../../Firebase";
 const db = firebase.firestore();
 
