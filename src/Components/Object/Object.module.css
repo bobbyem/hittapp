@@ -11,6 +11,8 @@
 
 }
 
-/* .Object :hover{
-    background-color: #0dc5c1;
-} */
+@media only screen and (max-width: 500px) {
+    .Object {
+        width: 50%;
+    }
+}
