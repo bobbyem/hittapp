@@ -11,8 +11,18 @@
 
 }
 
+@media only screen and (min-width: 700px) {
+    .Object {
+        width: 20%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .Object {
+        width: 40%;
+    }
+}
 @media only screen and (max-width: 500px) {
     .Object {
-        width: 50%;
+        width: 80%;
     }
 }
