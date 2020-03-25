@@ -1,0 +1,58 @@
+.Login {
+    border: 1px solid black;
+    width: 300px;
+    transition: 0,5s;
+}
+
+.Login {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.Login label{
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.Login input{
+    height: 2rem;
+    font-size: 1.5rem;
+}
+
+.Login form{
+    width:90%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+}
+
+.Login button{
+    height: 3rem;
+    margin: 5px 0px;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.Login textarea {
+    height: 100px;
+    font-size: 1.5rem;
+    font-family: inherit;
+}
+
+textarea:focus, input:focus {
+    background-color: #0dc5c1;
+    color: white;
+    border: 1px solid #c5970d ;
+}
+
+::placeholder {
+    color: rgb(179, 179, 179);
+}
+
+.Link {
+    color: #0dc5c1;
+    cursor: pointer;
+}
