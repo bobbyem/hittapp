@@ -1,25 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import classes from "./Login.module.css";
 import firebase from "../../../Firebase";
 import Aux from "../../../HOC/Auxiliary/Auxiliary";
 import "firebase/auth";
 const auth = firebase.auth();
+let provider = new firebase.auth.GoogleAuthProvider();
 
 
 
 const Login = (props) => {
     const [showLogin, setShowLogin] = useState(true);
     const [showRegister, setShowRegister] = useState(false);
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [loginEmail, setLoginEmail] = useState(null);
     const [loginPassword, setLoginPassword] = useState(null);
     const [registerEmail, setRegisterEmail] = useState(null);
     const [registerPassword, setRegisterPassword] = useState(null);
+    const [authUser, setAuthUser] = useState(null);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user => {
+            if (user) {
+                setAuthUser(user);
+                setUserLoggedIn(true);
+                setShowLogin(false)
+                console.log("User logged in: ", userLoggedIn);
+            }else if (!authUser) {
+                return
+            }else {
+                setShowLogin(true);
+                setAuthUser(null);
+                setUserLoggedIn(false);
+                console.log("No user logged in...")
+            }
+        }))
+    })
 
     const toggleLogin = () => {
         setShowLogin(!showLogin);
         setShowRegister(!showRegister);
-        console.log("showLogin = " + showLogin, "showRegister = " + showRegister)
     }
 
     const toggleRegister = () => {
@@ -33,10 +52,9 @@ const Login = (props) => {
             auth.signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error){
                 let errorCode = error.code;
                 let errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+                alert(errorCode);
+                alert(errorMessage);
             } );
-            setUserLoggedIn(true);
         }
     }
 
@@ -72,14 +90,39 @@ const Login = (props) => {
         console.log(registerPassword);
     }
 
-    const logOutHandler = () => {
+    const logOutHandler = (event) => {
+        event.preventDefault();
         auth.signOut().then(function(){
             console.log("Signout successfull");
         }).catch(function(error) {
             console.log(error.code);
         })
-    } 
-
+    }
+    
+    const googleLogin = () => {
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // ...
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            console.log(errorCode);
+            var errorMessage = error.message;
+            console.log(errorMessage);
+        
+            // The email of the user's account used.
+            var email = error.email;
+            console.log(email);
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            console.log(credential)
+          });
+    }
+ 
     return (
         <Aux>
 
@@ -102,11 +145,12 @@ const Login = (props) => {
                 <span>
                     <p>Saknar du konto?</p>
                     <p className={classes.Link} onClick={toggleLogin}>Registrera</p>
+                    <p className={classes.Link} onClick={googleLogin} >Logga in med Google</p>
                 </span>
             </form>
 
 
-            <form className={classes.RegisterForm} style={{display: (!showLogin ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
+            <form className={classes.RegisterForm} style={{display: (!showLogin && !userLoggedIn ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
                 <label>
                     E-post:
                 </label>
@@ -123,9 +167,12 @@ const Login = (props) => {
                 <p className={classes.Link} onClick={toggleRegister}>Logga in</p>
             </form>
 
-            <form className={classes.LogoutForm} style={{display: (userLoggedIn ? "flex" : "none")}}>
-                <button type="submit" onSubmit={logOutHandler}>Logga ut</button>
+
+            <form className={classes.LogoutForm} onSubmit={logOutHandler} style={{display: (userLoggedIn ? "flex" : "none")}}>
+                <p>Är du färdig med hittApp?</p>
+                <button type="submit" >Logga ut</button>
             </form>
+
         </div>
 
         </Aux>

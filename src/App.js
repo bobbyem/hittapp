@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import './App.css';
 import Layout from "./Components/Layout/Layout";
 import Tappat from "./Containers/Tappat/Tappat";
@@ -7,6 +7,11 @@ import Login from "./Components/UI/Login/Login";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 function App() {
+
+  useEffect(() => {
+    console.log("UseEffect at app.js");
+  })
+
   return (
 
     <Router>

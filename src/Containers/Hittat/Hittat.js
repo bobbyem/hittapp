@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import classes from "./Hittat.module.css";
 import firebase from "../../Firebase";
+import Login from "../../Components/UI/Login/Login";
 const db = firebase.firestore();
 
 
 class hittat extends Component {
     state = {
+        userLoggedIn: false,
         uploadSuccess: false,
         requiredFilled: false,
         input: {
@@ -23,9 +25,9 @@ class hittat extends Component {
     }
     componentDidMount() {
         document.title="hittApp";
-        console.log("Coponent did mount in hittat.js");
+        console.log("Component did mount in hittat.js");
     }
-
+    
 
     publishHandler = (event) => {
         event.preventDefault();
@@ -108,7 +110,7 @@ class hittat extends Component {
 
     render () {
 
-        if (!this.state.uploadSuccess) {
+        if (!this.state.uploadSuccess && this.state.userLoggedIn) {
             return (
                 <div className={classes.Hittat}>
                     <form onSubmit={this.publishHandler}>
@@ -130,6 +132,12 @@ class hittat extends Component {
                 </div>
             )
         };
+
+        if (!this.state.userLoggedIn) {
+            return (
+                <Login/>
+            )
+        }
             return (
                 <div>
                 <h1>Tack för ditt bidrag!</h1>
