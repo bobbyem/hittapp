@@ -12,7 +12,8 @@ export default class Tappat extends PureComponent {
         placeholder: "Vad har du tappat?",
         query: null,
         foundObjects: null,
-        queryMatch: null,
+        exactQueryMatch: [],
+        similarQueryMatches: [],
         noMatchObject: {
             title: "",
             amount: 0,
@@ -21,9 +22,6 @@ export default class Tappat extends PureComponent {
 
         }
     }
-
-
-
 
     componentDidMount() {
         db.collection("hittat").get()
@@ -35,22 +33,46 @@ export default class Tappat extends PureComponent {
           
     }
 
-
     searchQueryChangeHandler = (event) => {
-        this.setState({...this.state, queryMatch: null});
+        this.setState({exactQueryMatch: null});
         this.setState({...this.state, query: event.target.value.toLowerCase()});
         console.log(this.state.query);
     }
 
     searchSubmitHandler = (event) => {
-        console.log(this.state.query)
         event.preventDefault();
         let query = this.state.query;
-        let matchIndex = this.state.foundObjects.findIndex(function (object, index){
-            return object.title.toLowerCase() === query;
-        });
-        
-        this.setState({...this.state, queryMatch: matchIndex});
+        let matchObjects = [];
+
+        if (this.state.foundObjects) {
+            let objects = this.state.foundObjects;
+            //Check for exact matches and store
+            objects.forEach((element, i) => {
+                if (element.title.toLowerCase() === query.toLowerCase()) {
+                    matchObjects.push(element);
+                }
+                return 
+            });
+
+            //Push similar results to similarMatchIndexes
+            objects.forEach((element, i) => {
+                let currentMatch = matchObjects[0];
+                if(element !== currentMatch){
+                    let firstThreeChars = query.slice(0,3);
+                    let elementFirstThreeChars = element.title.slice(0,3).toLowerCase();
+                    return elementFirstThreeChars === firstThreeChars ? matchObjects.push(element) : null;}
+            });
+            console.log(matchObjects);
+
+        // Set Query Matches in State 
+        this.setState({exactQueryMatch: matchObjects});
+        matchObjects = [];
+        }
+
+        //In case no objects to search - Server connection lost?
+        else {
+            alert("no objects");
+        }
   
     }
 
@@ -58,22 +80,13 @@ export default class Tappat extends PureComponent {
 
         let object = <Spinner/>;
 
-        if (this.state.queryMatch !== null && this.state.queryMatch === -1) {
-            //No match view
-            object = this.state.foundObjects.map((object) => <Object className={classes.Object} key={object.title} title={object.title} 
-                amount={object.amount}
-                description={object.description}
-                url={object.url}/>)
-        }
-
-        if (this.state.queryMatch !== null && this.state.queryMatch >=0) {
+        if (this.state.exactQueryMatch !== null) {
             //Found match view
-            let index = this.state.queryMatch;
-            let match = this.state.foundObjects[index];
-            object = <Object className={classes.Object} key={match.title} title={match.title} 
-                amount={match.amount}
-                description={match.description}
-                url={match.url}/>;
+            let matchObject = this.state.exactQueryMatch;
+            object = matchObject.map((element) => <Object className={classes.Object} key={element.title} title={element.title} 
+                amount={element.amount}
+                description={element.description}
+                url={element.url}/>)
         }
 
         return (
@@ -83,7 +96,7 @@ export default class Tappat extends PureComponent {
                     <input type="text" className={classes.SearchBar} placeholder={this.state.placeholder} onChange={this.searchQueryChangeHandler}/>
                 </form>
                 <div className={classes.Tappat}>
-                {!this.state.query ? null : object}
+                    {!this.state.query ? null : object}
                 </div>
             </Aux>
             

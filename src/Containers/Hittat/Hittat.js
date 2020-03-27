@@ -1,39 +1,37 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import classes from "./Hittat.module.css";
 import firebase from "../../Firebase";
 import Login from "../../Components/UI/Login/Login";
+import UserContext from "../../Contexts/UserContext";
 const db = firebase.firestore();
 
 
-class hittat extends Component {
-    state = {
-        userLoggedIn: false,
-        uploadSuccess: false,
-        requiredFilled: false,
-        input: {
-            title: null,
-            amount: 0,
-            description: null,
-            image: null,
-            url: null
-        },
-        placeholder: {
-            title: "Titel",
-            amount: 0,
-            description: "Beskriv det du hittat..."
-        }
-    }
-    componentDidMount() {
-        document.title="hittApp";
-        console.log("Component did mount in hittat.js");
-    }
+function Hittat () {
+    const [uploadSucess, setUploadSuccess] = useState(false);
+    const [inputTitle, setInputTitle] = useState(null);
+    const [inputAmount, setInputAmount] = useState(null);
+    const [inputDescription, setInputDescription] = useState(null);
+    const [inputImage, setInputImage] = useState(null);
+    const [inputURL, setInputURL] = useState(null);
+    const [placeholderTitle, setPlaceholderTitle] = useState("Titel");
+    const [placeholderAmount, setPlaceholderAmount] = useState(0);
+    const [placeholderDescription, setPlaceholderDescription] = useState("Beskriv det du hittat");
+    
+    
+    useLayoutEffect(() => {
+        console.log("useLayOutEffect at hittat.js");
+    })
     
 
-    publishHandler = (event) => {
+    const publishHandler = (event) => {
         event.preventDefault();
         //Grab a state reference
-        let inputRef = {...this.state.input};
-        let file = this.state.input.image;
+        let inputRef = {
+            title: inputTitle,
+            amount: inputAmount,
+            description: inputDescription
+        };
+        let file = inputImage;
         let storageRef = firebase.storage().ref();
         let uploadTask = storageRef.child("uploads/" +file.name).put(file);
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
@@ -59,92 +57,58 @@ class hittat extends Component {
                 });
             }
             );
-    this.setState({uploadSuccess: true});
+    setUploadSuccess(true);
     };
 
-    titlehandler = (event) => {
+    const titlehandler = (event) => {
         let titleInput = event.target.value;
-        this.setState(state => ({
-            input: {
-                ...state.input,
-                title: titleInput
-            }
-        }));
-        console.log(titleInput);
-        console.log(this.state.input);
+        setInputTitle(titleInput);
     }
 
-    amountHandler = (event) => {
+    const amountHandler = (event) => {
         let amountInput = event.target.value;
-        this.setState(state => ({
-            input: {
-                ...state.input,
-                amount: amountInput
-            }
-        }));
-        console.log(this.state.input.amount);
+        setInputAmount(amountInput);
     };
 
-    descriptionHandler = (event) => {
+    const descriptionHandler = (event) => {
         let descriptionInput = event.target.value;
-        this.setState(state => ({
-            input: {
-                ...state.input,
-                description: descriptionInput
-            }
-        }));
-        console.log(this.state.input.description);
+        setInputDescription(descriptionInput);
     };
 
-    fileChangedHandler = (event) => {
+    const fileChangedHandler = (event) => {
         let file = event.target.files[0];
-        this.setState(state => ({
-            input: {
-                ...state.input,
-                image: file
-            }
-        }));
+        setInputImage(file);
     }
 
-
-
-    render () {
-
-        if (!this.state.uploadSuccess && this.state.userLoggedIn) {
+        if (!uploadSucess) {
             return (
                 <div className={classes.Hittat}>
-                    <form onSubmit={this.publishHandler}>
+                    <form onSubmit={publishHandler}>
                         <h1>Vad har du hittat?</h1>
                         <label>Titel </label>
-                        <input type="text" placeholder={this.state.placeholder.title} onChange={this.titlehandler} required/>
+                        <input type="text" placeholder={placeholderTitle} onChange={titlehandler} required/>
                         <br/>
                         <label>Antal</label>
-                        <input type="number" placeholder={this.state.placeholder.amount} onChange={this.amountHandler} required/>
+                        <input type="number" placeholder={placeholderAmount} onChange={amountHandler} required/>
                         <br/>
                         <label>Beskrivning</label>
-                        <textarea type="text" placeholder={this.state.placeholder.description} onChange={this.descriptionHandler} required/>
+                        <textarea type="text" placeholder={placeholderDescription} onChange={descriptionHandler} required/>
                         <br/>
                         <label>Bild</label>
-                        <input type="file" accept="image/*" required onChange={this.fileChangedHandler}/>
+                        <input type="file" accept="image/*" required onChange={fileChangedHandler}/>
                         <br/>
-                        <button onSubmit={this.publishHandler}>Publicera</button>
+                        <button onSubmit={publishHandler}>Publicera</button>
                     </form>
                 </div>
             )
         };
 
-        if (!this.state.userLoggedIn) {
-            return (
-                <Login/>
-            )
-        }
             return (
                 <div>
                 <h1>Tack för ditt bidrag!</h1>
                 </div>
             );
-
     }
-}
 
-export default hittat;
+
+export default Hittat;

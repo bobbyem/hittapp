@@ -1,7 +1,8 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import classes from "./Login.module.css";
 import firebase from "../../../Firebase";
 import Aux from "../../../HOC/Auxiliary/Auxiliary";
+import UserContext from "../../../Contexts/UserContext";
 import "firebase/auth";
 const auth = firebase.auth();
 let provider = new firebase.auth.GoogleAuthProvider();
