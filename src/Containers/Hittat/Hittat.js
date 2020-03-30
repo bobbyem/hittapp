@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import classes from "./Hittat.module.css";
 import firebase from "../../Firebase";
-import Login from "../../Components/UI/Login/Login";
-import UserContext from "../../Contexts/UserContext";
 const db = firebase.firestore();
 
 
@@ -12,7 +10,6 @@ function Hittat () {
     const [inputAmount, setInputAmount] = useState(null);
     const [inputDescription, setInputDescription] = useState(null);
     const [inputImage, setInputImage] = useState(null);
-    const [inputURL, setInputURL] = useState(null);
     const [placeholderTitle, setPlaceholderTitle] = useState("Titel");
     const [placeholderAmount, setPlaceholderAmount] = useState(0);
     const [placeholderDescription, setPlaceholderDescription] = useState("Beskriv det du hittat");
@@ -20,6 +17,10 @@ function Hittat () {
     
     useLayoutEffect(() => {
         console.log("useLayOutEffect at hittat.js");
+    })
+
+    useEffect(() => {
+        console.log("UseEffect at hittat.js");
     })
     
 

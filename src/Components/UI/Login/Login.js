@@ -18,11 +18,14 @@ const Login = (props) => {
     const [registerPassword, setRegisterPassword] = useState(null);
     const [authUser, setAuthUser] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
+    const {user, setUser} = useContext(UserContext);
 
     useEffect(() => {
         auth.onAuthStateChanged((user => {
             if (user) {
                 setAuthUser(user);
+                console.log(UserContext);
+                setUser(user);
                 setUserLoggedIn(true);
                 setShowLogin(false)
                 console.log("User logged in: ", userLoggedIn);
@@ -95,6 +98,7 @@ const Login = (props) => {
         event.preventDefault();
         auth.signOut().then(function(){
             console.log("Signout successfull");
+            setUser(null);
         }).catch(function(error) {
             console.log(error.code);
         })
@@ -105,7 +109,9 @@ const Login = (props) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
             var token = result.credential.accessToken;
             // The signed-in user info.
+            console.log("token: ", token);
             var user = result.user;
+            console.log("user: ", user)
             // ...
           }).catch(function(error) {
             // Handle Errors here.

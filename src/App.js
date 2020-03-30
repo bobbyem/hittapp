@@ -12,17 +12,18 @@ function App() {
 
   useEffect(() => {
     console.log("UseEffect at app.js");
+    console.log(user);
   })
 
   return (
-    <UserContext.Provider user={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser}}>
       <Router>
           <div className="App">
             <Layout>
               <Switch>
                 <Route path="/" exact component={Tappat}/>
                 <Route path="/tappat" component={Tappat}/>
-                <Route path="/hittat" component={Hittat}/>
+                <Route path="/hittat" component={user ? Hittat : Login}/>
                 <Route path="/login" component={Login}/>
               </Switch>
             </Layout>
