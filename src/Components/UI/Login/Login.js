@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useLayoutEffect, useContext} from "react";
 import classes from "./Login.module.css";
 import firebase from "../../../Firebase";
 import Aux from "../../../HOC/Auxiliary/Auxiliary";
@@ -16,25 +16,20 @@ const Login = (props) => {
     const [loginPassword, setLoginPassword] = useState(null);
     const [registerEmail, setRegisterEmail] = useState(null);
     const [registerPassword, setRegisterPassword] = useState(null);
-    const [authUser, setAuthUser] = useState(null);
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
     const {user, setUser} = useContext(UserContext);
 
-    useEffect(() => {
+
+    useLayoutEffect(() => {
+        //Check if user is logged in
         auth.onAuthStateChanged((user => {
             if (user) {
-                setAuthUser(user);
-                console.log(UserContext);
+                //User is logged in - Set user
                 setUser(user);
-                setUserLoggedIn(true);
-                setShowLogin(false)
-                console.log("User logged in: ", userLoggedIn);
-            }else if (!authUser) {
-                return
+                console.log(user.displayName)
+                console.log("User logged in: ");
             }else {
-                setShowLogin(true);
-                setAuthUser(null);
-                setUserLoggedIn(false);
+                //User not logged in - clear User
+                setUser(null);
                 console.log("No user logged in...")
             }
         }))
@@ -119,7 +114,7 @@ const Login = (props) => {
             console.log(errorCode);
             var errorMessage = error.message;
             console.log(errorMessage);
-        
+
             // The email of the user's account used.
             var email = error.email;
             console.log(email);
@@ -136,14 +131,14 @@ const Login = (props) => {
         <div className={classes.Login} >
             
             
-            <form className={classes.LoginForm} style={{display: (showLogin ? "flex" : "none")}} onSubmit={loginSubmitHandler}>
+            <form className={classes.LoginForm} style={{display: (showLogin && !user ? "flex" : "none")}} onSubmit={loginSubmitHandler}>
                 <label>
                     E-post:
                 </label>
                 <input type="email" placeholder="e-post" onChange={loginEmailChangedHandler}></input>
 
                 <br/>
-
+                
                 <label>
                     Lösenord:
                 </label>
@@ -157,7 +152,7 @@ const Login = (props) => {
             </form>
 
 
-            <form className={classes.RegisterForm} style={{display: (!showLogin && !userLoggedIn ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
+            <form className={classes.RegisterForm} style={{display: (!showLogin && !user ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
                 <label>
                     E-post:
                 </label>
@@ -175,11 +170,10 @@ const Login = (props) => {
             </form>
 
 
-            <form className={classes.LogoutForm} onSubmit={logOutHandler} style={{display: (userLoggedIn ? "flex" : "none")}}>
+            <form className={classes.LogoutForm} onSubmit={logOutHandler} style={{display: (user ? "flex" : "none")}}>
                 <p>Är du färdig med hittApp?</p>
                 <button type="submit" >Logga ut</button>
             </form>
-
         </div>
 
         </Aux>

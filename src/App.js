@@ -12,7 +12,6 @@ function App() {
 
   useEffect(() => {
     console.log("UseEffect at app.js");
-    console.log(user);
   })
 
   return (

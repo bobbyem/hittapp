@@ -10,9 +10,6 @@ function Hittat () {
     const [inputAmount, setInputAmount] = useState(null);
     const [inputDescription, setInputDescription] = useState(null);
     const [inputImage, setInputImage] = useState(null);
-    const [placeholderTitle, setPlaceholderTitle] = useState("Titel");
-    const [placeholderAmount, setPlaceholderAmount] = useState(0);
-    const [placeholderDescription, setPlaceholderDescription] = useState("Beskriv det du hittat");
     
     
     useLayoutEffect(() => {
@@ -87,13 +84,13 @@ function Hittat () {
                     <form onSubmit={publishHandler}>
                         <h1>Vad har du hittat?</h1>
                         <label>Titel </label>
-                        <input type="text" placeholder={placeholderTitle} onChange={titlehandler} required/>
+                        <input type="text" placeholder="Titel" onChange={titlehandler} required/>
                         <br/>
                         <label>Antal</label>
-                        <input type="number" placeholder={placeholderAmount} onChange={amountHandler} required/>
+                        <input type="number" placeholder="0" onChange={amountHandler} required/>
                         <br/>
                         <label>Beskrivning</label>
-                        <textarea type="text" placeholder={placeholderDescription} onChange={descriptionHandler} required/>
+                        <textarea type="text" placeholder="Beskriv det du hittat..." onChange={descriptionHandler} required/>
                         <br/>
                         <label>Bild</label>
                         <input type="file" accept="image/*" required onChange={fileChangedHandler}/>
