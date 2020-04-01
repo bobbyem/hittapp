@@ -12,6 +12,7 @@ function App() {
 
   useEffect(() => {
     console.log("UseEffect at app.js");
+    document.title = "hittApp - Lost and found";
   })
 
   return (
@@ -22,7 +23,7 @@ function App() {
               <Switch>
                 <Route path="/" exact component={Tappat}/>
                 <Route path="/tappat" component={Tappat}/>
-                <Route path="/hittat" component={user ? Hittat : Login}/>
+                <Route path="/hittat" component={user ? Hittat :  Login}/>
                 <Route path="/login" component={Login}/>
               </Switch>
             </Layout>

@@ -17,6 +17,7 @@ const Login = (props) => {
     const [registerEmail, setRegisterEmail] = useState(null);
     const [registerPassword, setRegisterPassword] = useState(null);
     const {user, setUser} = useContext(UserContext);
+    const [errorMessage, setErrorMessage] = useState("");
 
 
     useLayoutEffect(() => {
@@ -31,6 +32,9 @@ const Login = (props) => {
                 //User not logged in - clear User
                 setUser(null);
                 console.log("No user logged in...")
+                if (errorMessage) {
+                    setTimeout(function () { setErrorMessage(null)}, 5000);
+                }
             }
         }))
     })
@@ -51,8 +55,14 @@ const Login = (props) => {
             auth.signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error){
                 let errorCode = error.code;
                 let errorMessage = error.message;
-                alert(errorCode);
-                alert(errorMessage);
+                if(errorCode === "auth/user-not-found") {
+                    setErrorMessage("Vi har ingen användare som stämmer med den adressen. Kontrollera uppgifterna, registrera ett konto eller logga in med ditt Google-konto.")
+                }
+                if(errorCode === "auth/wrong-password") {
+                    setErrorMessage("Lösenordet stämmer tyvärr inte, var god kontrollera.")
+                }
+                console.log(errorCode);
+                console.log(errorMessage);
             } );
         }
     }
@@ -73,6 +83,9 @@ const Login = (props) => {
             auth.createUserWithEmailAndPassword(registerEmail, registerPassword).catch(function(error) {
                 let errorCode = error.code;
                 let errorMessage = error.message;
+                if(errorCode === "auth/email-already-in-use") {
+                    setErrorMessage("Det finns redan en registrerad användare med den e-post-adressen.")
+                }
                 console.log(errorCode);
                 console.log(errorMessage);
             })
@@ -132,6 +145,7 @@ const Login = (props) => {
             
             
             <form className={classes.LoginForm} style={{display: (showLogin && !user ? "flex" : "none")}} onSubmit={loginSubmitHandler}>
+                <p>{errorMessage}</p>
                 <label>
                     E-post:
                 </label>
@@ -153,6 +167,7 @@ const Login = (props) => {
 
 
             <form className={classes.RegisterForm} style={{display: (!showLogin && !user ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
+                <p>{errorMessage}</p>
                 <label>
                     E-post:
                 </label>
@@ -171,11 +186,11 @@ const Login = (props) => {
 
 
             <form className={classes.LogoutForm} onSubmit={logOutHandler} style={{display: (user ? "flex" : "none")}}>
+                <p>Du är inloggad på hittApp, välj från menyn ovan.</p>
                 <p>Är du färdig med hittApp?</p>
                 <button type="submit" >Logga ut</button>
             </form>
         </div>
-
         </Aux>
     )
 }

@@ -3,7 +3,7 @@
     position: fixed;
     width: 100%;
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     align-items: flex-start;
     color: white;
     position: relative;
@@ -36,3 +36,7 @@ li:hover {
     
 }
 
+.AccountIcon img{
+    height: 30px;
+    margin-top: 5px;
+}

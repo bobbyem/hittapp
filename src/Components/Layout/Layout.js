@@ -11,7 +11,7 @@ const Layout = (props) => {
         setMenuOpen(!menuOpen);
         console.log(menuOpen);
     };
-    let menuHeight = (menuOpen ? 80 : 0);
+    let menuHeight = (menuOpen ? 40 : 0);
     let overlayDisplay = (menuOpen ? "block" : "none");
     
     return (

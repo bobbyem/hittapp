@@ -4,6 +4,7 @@ import firebase from "../../Firebase";
 import Object from "../../Components/Object/Object";
 import Aux from "../../HOC/Auxiliary/Auxiliary";
 import Spinner from "../../Components/UI/Spinner/Spinner";
+import ObjectSmall from "../../Components/ObjectSmall/ObjectSmall";
 const db = firebase.firestore();
 
 
@@ -12,7 +13,7 @@ export default class Tappat extends PureComponent {
         placeholder: "Vad har du tappat?",
         query: null,
         foundObjects: null,
-        exactQueryMatch: [],
+        queryMatches: [],
         similarQueryMatches: [],
         noMatchObject: {
             title: "",
@@ -34,9 +35,8 @@ export default class Tappat extends PureComponent {
     }
 
     searchQueryChangeHandler = (event) => {
-        this.setState({exactQueryMatch: null});
-        this.setState({...this.state, query: event.target.value.toLowerCase()});
-        console.log(this.state.query);
+        this.setState({queryMatches: []});
+        this.setState({query: event.target.value.toLowerCase()});
     }
 
     searchSubmitHandler = (event) => {
@@ -65,13 +65,13 @@ export default class Tappat extends PureComponent {
             console.log(matchObjects);
 
         // Set Query Matches in State 
-        this.setState({exactQueryMatch: matchObjects});
+        this.setState({queryMatches: matchObjects});
         matchObjects = [];
         }
 
         //In case no objects to search - Server connection lost?
         else {
-            alert("no objects");
+            console.log("Uppkopplingsproblem - Databasen");
         }
   
     }
@@ -79,10 +79,15 @@ export default class Tappat extends PureComponent {
     render() {
 
         let object = <Spinner/>;
+        let objectsSmall = <Spinner/>;
 
-        if (this.state.exactQueryMatch !== null) {
+        if(this.state.foundObjects) {
+            objectsSmall = this.state.foundObjects.map((element) => <ObjectSmall url={element.url} title={element.title} alt={element.description}/>)
+        }
+
+        if (this.state.queryMatches.length > 0) {
             //Found match view
-            let matchObject = this.state.exactQueryMatch;
+            let matchObject = this.state.queryMatches;
             object = matchObject.map((element) => <Object className={classes.Object} key={element.title} title={element.title} 
                 amount={element.amount}
                 description={element.description}
@@ -97,6 +102,7 @@ export default class Tappat extends PureComponent {
                 </form>
                 <div className={classes.Tappat}>
                     {!this.state.query ? null : object}
+                    {objectsSmall}
                 </div>
             </Aux>
             
