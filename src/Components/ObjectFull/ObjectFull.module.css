@@ -1,0 +1,45 @@
+.ObjectFull {
+    width: 70%;
+    margin: 20px 15%;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    border:rgba(128, 128, 128, 0.198) 2px solid;
+    cursor: pointer;
+}
+
+.TextSection{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.ImageSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ObjectFull img {
+    max-width: 50%;
+    object-fit: contain;
+}
+
+
+h1 {
+    width: 100%;
+}
+
+h4 {
+    width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+    .ObjectFull img {
+      max-width: 90%;
+    }
+  }

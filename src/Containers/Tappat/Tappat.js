@@ -5,6 +5,7 @@ import Object from "../../Components/Object/Object";
 import Aux from "../../HOC/Auxiliary/Auxiliary";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import ObjectSmall from "../../Components/ObjectSmall/ObjectSmall";
+import ObjectFull from "../../Components/ObjectFull/ObjectFull";
 const db = firebase.firestore();
 
 
@@ -15,6 +16,7 @@ export default class Tappat extends PureComponent {
         foundObjects: null,
         queryMatches: [],
         similarQueryMatches: [],
+        selectedObject: null,
         noMatchObject: {
             title: "",
             amount: 0,
@@ -37,6 +39,14 @@ export default class Tappat extends PureComponent {
     searchQueryChangeHandler = (event) => {
         this.setState({queryMatches: []});
         this.setState({query: event.target.value.toLowerCase()});
+        this.setState({selectedObject: null});
+    }
+
+    selectObjectHandler = (element) => {
+        if (element) {
+            this.setState({selectedObject: element});
+            console.log(element);
+        }
     }
 
     searchSubmitHandler = (event) => {
@@ -80,9 +90,10 @@ export default class Tappat extends PureComponent {
 
         let object = <Spinner/>;
         let objectsSmall = <Spinner/>;
-
-        if(this.state.foundObjects) {
-            objectsSmall = this.state.foundObjects.map((element) => <ObjectSmall url={element.url} title={element.title} alt={element.description}/>)
+        let objectFull = null;
+        //Starting view miniature objects
+        if(this.state.foundObjects && !this.state.query) {
+            objectsSmall = this.state.foundObjects.map((element) => <ObjectSmall url={element.url} title={element.title} alt={element.description} clicked={() => this.selectObjectHandler(element)}/>)
         }
 
         if (this.state.queryMatches.length > 0) {
@@ -91,7 +102,11 @@ export default class Tappat extends PureComponent {
             object = matchObject.map((element) => <Object className={classes.Object} key={element.title} title={element.title} 
                 amount={element.amount}
                 description={element.description}
-                url={element.url}/>)
+                url={element.url} clicked={() => this.selectObjectHandler(element)}/>)
+        }
+        //Show Full Object
+        if (this.state.selectedObject) {
+            objectFull = <ObjectFull url={this.state.selectedObject.url} title={this.state.selectedObject.title} amount={this.state.selectedObject.amount} description={this.state.selectedObject.description} clicked={() => this.setState({selectedObject: null})}/>;
         }
 
         return (
@@ -101,8 +116,9 @@ export default class Tappat extends PureComponent {
                     <input type="text" className={classes.SearchBar} placeholder={this.state.placeholder} onChange={this.searchQueryChangeHandler}/>
                 </form>
                 <div className={classes.Tappat}>
+                    {!this.state.selectedObject ? null : objectFull}
                     {!this.state.query ? null : object}
-                    {objectsSmall}
+                    {this.state.query ? null : objectsSmall} 
                 </div>
             </Aux>
             
