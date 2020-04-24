@@ -6,6 +6,11 @@
     cursor: pointer;
 }
 
+.Object:hover {
+    background-color: #0dc5c270;
+    transition: 0.5s;
+}
+
 .Object img {
     width: 50%;
 

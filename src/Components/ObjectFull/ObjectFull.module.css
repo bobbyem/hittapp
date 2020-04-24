@@ -9,6 +9,10 @@
     cursor: pointer;
 }
 
+.ObjectFull:hover {
+    background-color:#0dc5c270;
+}
+
 .TextSection{
     width: 100%;
     display: flex;
@@ -32,14 +36,22 @@
 
 h1 {
     width: 100%;
+    margin: 0;
 }
 
 h4 {
     width: 100%;
+    margin:0;
 }
 
 @media screen and (max-width: 500px) {
+    .ObjectFull {
+        width: 100%;
+        height: 80vh;
+        margin: 0;
+    }
+    
     .ObjectFull img {
-      max-width: 90%;
+      max-width: 70%;
     }
   }

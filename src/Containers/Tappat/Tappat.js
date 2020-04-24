@@ -43,9 +43,9 @@ export default class Tappat extends PureComponent {
     }
 
     selectObjectHandler = (element) => {
+        //Store clicked element
         if (element) {
             this.setState({selectedObject: element});
-            console.log(element);
         }
     }
 

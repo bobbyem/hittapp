@@ -17,3 +17,12 @@
 .Object :hover{
     background-color: #0dc5c1;
 }
+
+@media (max-width: 500px) {
+    .Tappat {
+        padding: 0;
+    }
+    .SearchBar {
+        width: 95%;
+    }
+}

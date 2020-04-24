@@ -9,3 +9,15 @@
     overflow: hidden;
     object-fit: cover;
 }
+
+.ObjectSmall img:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+    border-radius: 5%;
+}
+
+@media (max-width: 620px) {
+    .ObjectSmall {
+        width: 100px;
+    }
+}
