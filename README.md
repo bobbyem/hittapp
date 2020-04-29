@@ -6,11 +6,11 @@
 https://hittapp-dda5d.web.app/
 
 #### Teknologier jag använt:
-..* React-JS
-..* Firebase(Firestore, Auth, Hosting, Storage)
-..* React Router
-..* Node-JS
-..* Context
+* React-JS
+* Firebase(Firestore, Auth, Hosting, Storage)
+* React Router
+* Node-JS
+* Context
 
 Alla loggor och grafik har jag skapat i Affinity Designer.
 
