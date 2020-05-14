@@ -86,6 +86,9 @@ const Login = (props) => {
                 if(errorCode === "auth/email-already-in-use") {
                     setErrorMessage("Det finns redan en registrerad användare med den e-post-adressen.")
                 }
+                if(errorCode === "auth/weak-password") {
+                    setErrorMessage("Ditt valda lösenord är för kort, välj ett som är minst 6 tecken långt.")
+                }
                 console.log(errorCode);
                 console.log(errorMessage);
             })
@@ -94,12 +97,10 @@ const Login = (props) => {
 
     const registerEmailChangedHandler = (event) => {
         setRegisterEmail(event.target.value);
-        console.log(registerEmail);
     }
 
     const registerPassWordChangedHandler = (event) => {
         setRegisterPassword(event.target.value);
-        console.log(registerPassword);
     }
 
     const logOutHandler = (event) => {

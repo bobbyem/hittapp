@@ -5,8 +5,9 @@
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
-    border:rgba(128, 128, 128, 0.198) 2px solid;
+    border:#80808032 2px solid;
     cursor: pointer;
+    animation: slideDwn 1s;
 }
 
 .ObjectFull:hover {
@@ -30,6 +31,7 @@
 
 .ObjectFull img {
     max-width: 50%;
+    height: 400px;
     object-fit: contain;
 }
 
@@ -54,4 +56,9 @@ h4 {
     .ObjectFull img {
       max-width: 70%;
     }
+  }
+
+  @keyframes slideDwn {
+      0% {transform:translateY(-100px)};
+      100% {transform:translateY(0px)};
   }
