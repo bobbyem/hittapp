@@ -9,19 +9,21 @@
     display: flex;
     flex-flow: row;
     z-index: 800;
-    cursor: pointer;
 }
 
 .Header h1 {
     font-size: 3rem;
     margin:0;
     padding: 0;
+    font-family: Roboto;
 }
 
 .Logo {
     height: 50px;
     width: auto;
     left: 0;
-    margin-left: 10px;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 10px;
+    
 }

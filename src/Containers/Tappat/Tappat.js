@@ -51,6 +51,7 @@ export default class Tappat extends PureComponent {
         if (element) {
             this.setState({selectedObject: element});
         }
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth' });;
     }
 
     searchSubmitHandler = (event) => {
@@ -103,7 +104,7 @@ export default class Tappat extends PureComponent {
 
         //Starting view miniature objects
         if(this.state.foundObjects && !this.state.query) {
-            objectsSmall = this.state.foundObjects.map((element) => <ObjectSmall url={element.url} title={element.title} alt={element.description} clicked={() => this.selectObjectHandler(element)}/>)
+            objectsSmall = this.state.foundObjects.map((element) => <ObjectSmall key={element.url} url={element.url} title={element.title} alt={element.description} description={element.description} clicked={() => this.selectObjectHandler(element)}/>)
         }
 
         if (this.state.queryMatches.length > 0) {

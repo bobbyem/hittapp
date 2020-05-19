@@ -1,0 +1,123 @@
+.CallToAction {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    width: 100vw;
+    min-height: 70vh;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+}
+
+.CallToAction h1 {
+    font-size: 10vw;
+    color: #0dc5c1;
+}
+.CallToAction h2 {
+    font-size: 2vw;
+    color: #0dc5c1;
+}
+
+.CallToAction img {
+    max-width: 50%;
+    object-fit: contain;
+    animation: slideRight 1s ease-in-out;
+}
+
+.TextSection {
+    max-width: 50%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    box-sizing: border-box;
+    animation: slideLeft 1s ease-in-out;
+}
+
+.Copy {
+    margin: 10% 10% 0 10%;
+}
+
+.ButtonBox {
+    display:flex;
+    flex-flow: row;
+    align-content: space-between;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 3%;
+    animation: fadeIn 2s ease-in;
+}
+
+.CallToAction button {
+    border-radius: 25px;
+    border: solid transparent;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    font-size: 2vw;
+    cursor: pointer;
+}
+
+.CallToAction button:hover {
+    background-color: #0dc5c1;
+    transition: 0.5s;
+    color: white;
+}
+
+@media (max-width: 500px) {
+    .CallToAction img {
+        display: none;
+    }
+
+    .TextSection {
+        max-width: 100%;
+    }
+    
+    .CallToAction h1 {
+        font-size: 20vw;
+        color: #0dc5c1;
+    }
+    
+    .CallToAction h2 {
+        font-size: 8vw;
+        color: #0dc5c1;
+    }
+    .ButtonBox {
+        display:flex;
+        flex-flow: column;
+        align-content: center;
+        flex-wrap: wrap;
+        margin-top: 3%;
+    }
+    .CallToAction button {
+        border-radius: 25px;
+        border: solid transparent;
+        width: 80%;
+        height: auto;
+        padding: 10px;
+        font-size: 6vw;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+}
+
+@keyframes slideRight {
+    from {transform: translateX(-400px); opacity: 0;}
+    to {transform: translateX(0px); opacity: 1;}
+    
+}
+
+@keyframes slideLeft {
+    from {transform: translateX(400px); opacity: 0;}
+    to {transform: translateX(0px); opacity: 1;}
+    
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+    
+}

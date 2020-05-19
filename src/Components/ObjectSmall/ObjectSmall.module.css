@@ -1,6 +1,14 @@
 .ObjectSmall {
     width: 200px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #0dc5c1;
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre-line;
 }
 
 .ObjectSmall img{
@@ -8,16 +16,38 @@
     height: 100%;
     overflow: hidden;
     object-fit: cover;
+    opacity: 1;
 }
 
-.ObjectSmall img:hover {
-    transform: scale(1.1);
-    transition: 0.2s;
+.ObjectSmall:hover img {
+    transition: 0.3s;
     border-radius: 5%;
+    opacity: 0.3;
+}
+
+.HoverInfo {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    opacity: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transform: translateY(-20px);
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+.ObjectSmall:hover .HoverInfo {
+    opacity: 1;
+    transition: 0.5s;
+    transform: translateY(0px);
 }
 
 @media (max-width: 620px) {
     .ObjectSmall {
         width: 100px;
+    }
+    .HoverInfo {
+        display: none;
     }
 }

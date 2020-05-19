@@ -16,7 +16,7 @@ const Layout = (props) => {
     
     return (
     <div className={classes.Layout}>
-        <Header clicked={menuToggle}/>
+        <Header clicked={menuToggle} active={menuOpen}/>
         <SideDrawer  height={menuHeight} clicked={menuToggle}/>    
         <main>{props.children}</main>
         <Overlay display={overlayDisplay} clicked={menuToggle}/>

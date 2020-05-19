@@ -6,6 +6,7 @@ import Hittat from "./Containers/Hittat/Hittat";
 import Login from "./Components/UI/Login/Login";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import UserContext from "./Contexts/UserContext";
+import CallToAction from "../src/Components/CallToAction/CallToAction";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -21,7 +22,7 @@ function App() {
           <div className="App">
             <Layout>
               <Switch>
-                <Route path="/" exact component={Tappat}/>
+                <Route path="/" exact component={CallToAction}/>
                 <Route path="/tappat" component={Tappat}/>
                 <Route path="/hittat" component={user ? Hittat :  Login}/>
                 <Route path="/login" component={Login}/>
