@@ -4,6 +4,7 @@ import firebase from "../../../Firebase";
 import Aux from "../../../HOC/Auxiliary/Auxiliary";
 import UserContext from "../../../Contexts/UserContext";
 import "firebase/auth";
+import HeroImage from "../../../img/hero.png"
 const auth = firebase.auth();
 let provider = new firebase.auth.GoogleAuthProvider();
 
@@ -141,57 +142,77 @@ const Login = (props) => {
  
     return (
         <Aux>
+            <div className={classes.Wrapper}>
 
-        <div className={classes.Login} >
-            
-            
-            <form className={classes.LoginForm} style={{display: (showLogin && !user ? "flex" : "none")}} onSubmit={loginSubmitHandler}>
-                <p>{errorMessage}</p>
-                <label>
-                    E-post:
-                </label>
-                <input type="email" placeholder="e-post" onChange={loginEmailChangedHandler}></input>
+                <div className={classes.Card}>
+                    
+                    <div className={classes.Message}>
 
-                <br/>
+                        <div className={classes.MessageText}>
+                            <h1>Tack!</h1>
+                            <hr/>
+                            <h4>För att vill bidra med något du hittat. För att fortsätta önskar vi bara att du loggar in.</h4>
+                        </div>
+                        <img src={HeroImage} alt="Hittapp hero"/>
+                    </div>
+
+                    <div className={classes.Login} >
+                    
+                    
+                        <form className={classes.LoginForm} style={{display: (showLogin && !user ? "flex" : "none")}} onSubmit={loginSubmitHandler}>
+                            <p>{errorMessage}</p>
+                            <label>
+                                E-post:
+                            </label>
+                            <input type="email" placeholder="e-post" onChange={loginEmailChangedHandler}></input>
+
+                            <br/>
+                            
+                            <label>
+                                Lösenord:
+                            </label>
+                            <input type="password" placeholder="******" onChange={loginPasswordChangedHandler}></input>
+                            <button type="submit" onSubmit={props.login}>Logga in</button>
+                            <span>
+                                <p>Saknar du konto?</p>
+                                <p className={classes.Link} onClick={toggleLogin}>Registrera</p>
+                                <p className={classes.Link} onClick={googleLogin} >Logga in med Google</p>
+                            </span>
+                        </form>
+
+
+                        <form className={classes.RegisterForm} style={{display: (!showLogin && !user ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
+                            <p>{errorMessage}</p>
+                            <label>
+                                E-post:
+                            </label>
+                            <input type="email" placeholder="e-post" onChange={registerEmailChangedHandler}></input>
+                        
+                            <br/>
+
+                            <label>
+                                Lösenord:
+                            </label>
+                            <input type="password" placeholder="******" onChange={registerPassWordChangedHandler}></input>
+                            <button type="submit" onSubmit={props.register}>Registrera</button>
+                            <p>Har du redan ett konto?</p>
+                            <p className={classes.Link} onClick={toggleRegister}>Logga in</p>
+                        </form>
+
+
+                        <form className={classes.LogoutForm} onSubmit={logOutHandler} style={{display: (user ? "flex" : "none")}}>
+                            <p>Du är inloggad på hittApp, välj från menyn ovan.</p>
+                            <p>Är du färdig med hittApp?</p>
+                            <button type="submit" >Logga ut</button>
+                        </form>
                 
-                <label>
-                    Lösenord:
-                </label>
-                <input type="password" placeholder="******" onChange={loginPasswordChangedHandler}></input>
-                <button type="submit" onSubmit={props.login}>Logga in</button>
-                <span>
-                    <p>Saknar du konto?</p>
-                    <p className={classes.Link} onClick={toggleLogin}>Registrera</p>
-                    <p className={classes.Link} onClick={googleLogin} >Logga in med Google</p>
-                </span>
-            </form>
-
-
-            <form className={classes.RegisterForm} style={{display: (!showLogin && !user ? "flex" : "none")}} onSubmit={registerSubmitHandler}>
-                <p>{errorMessage}</p>
-                <label>
-                    E-post:
-                </label>
-                <input type="email" placeholder="e-post" onChange={registerEmailChangedHandler}></input>
-               
-                <br/>
-
-                <label>
-                    Lösenord:
-                </label>
-                <input type="password" placeholder="******" onChange={registerPassWordChangedHandler}></input>
-                <button type="submit" onSubmit={props.register}>Registrera</button>
-                <p>Har du redan ett konto?</p>
-                <p className={classes.Link} onClick={toggleRegister}>Logga in</p>
-            </form>
-
-
-            <form className={classes.LogoutForm} onSubmit={logOutHandler} style={{display: (user ? "flex" : "none")}}>
-                <p>Du är inloggad på hittApp, välj från menyn ovan.</p>
-                <p>Är du färdig med hittApp?</p>
-                <button type="submit" >Logga ut</button>
-            </form>
-        </div>
+                
+                    </div>
+                    
+                </div>
+            
+            </div>
+        
         </Aux>
     )
 }

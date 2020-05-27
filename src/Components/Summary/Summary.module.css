@@ -1,0 +1,35 @@
+.Summary {
+    width: 100vw;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.Title {
+    width: 100vw;
+    background-color: rgb(238, 238, 238);
+    margin: 30px 0;
+    color: white;
+}
+
+.ObjectSection {
+    width: 900px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 10%;
+
+}
+
+/* Media Queries */
+
+@media (max-width: 1020px) {
+    .ObjectSection {
+        margin: 0;
+    }
+
+}

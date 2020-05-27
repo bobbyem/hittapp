@@ -7,6 +7,7 @@ import Spinner from "../../Components/UI/Spinner/Spinner";
 import ObjectSmall from "../../Components/ObjectSmall/ObjectSmall";
 import ObjectFull from "../../Components/ObjectFull/ObjectFull";
 import NoMatchImage from "../../img/QuestionGlass.png";
+import Summary from "../../Components/Summary/Summary"
 const db = firebase.firestore();
 
 
@@ -18,6 +19,7 @@ export default class Tappat extends PureComponent {
         queryMatches: [],
         similarQueryMatches: [],
         selectedObject: null,
+        showAllMinis: false,
         noMatchObject: {
             title: "",
             amount: 0,
@@ -99,11 +101,12 @@ export default class Tappat extends PureComponent {
     render() {
 
         let object = <Spinner/>;
-        let objectsSmall = <Spinner/>;
+        let objectsSmall = this.state.showAllMinis ? <Spinner/> : null;
         let objectFull = null;
+        let summaryObjects = <Spinner/>;
 
         //Starting view miniature objects
-        if(this.state.foundObjects && !this.state.query) {
+        if(this.state.foundObjects && !this.state.query && this.state.showAllMinis) {
             objectsSmall = this.state.foundObjects.map((element) => <ObjectSmall key={element.url} url={element.url} title={element.title} alt={element.description} description={element.description} clicked={() => this.selectObjectHandler(element)}/>)
         }
 
@@ -121,6 +124,11 @@ export default class Tappat extends PureComponent {
             objectFull = <ObjectFull url={this.state.selectedObject.url} title={this.state.selectedObject.title} amount={this.state.selectedObject.amount} description={this.state.selectedObject.description} clicked={() => this.setState({selectedObject: null})}/>;
         }
 
+        if (this.state.foundObjects) {
+            let foundObjects = [...this.state.foundObjects];
+            summaryObjects = foundObjects.slice(0,8).map((element) => <ObjectSmall url={element.url} title={element.title} amount={element.amount} description={element.description} clicked={() => this.selectObjectHandler(element)}/>);
+        }
+
         return (
 
             <Aux>
@@ -131,6 +139,7 @@ export default class Tappat extends PureComponent {
                     {!this.state.selectedObject ? null : objectFull}
                     {!this.state.query ? null : object}
                     {this.state.query ? null : objectsSmall}
+                    <Summary>{summaryObjects}</Summary>
                 </div>
             </Aux>
             

@@ -6,6 +6,18 @@
     "source": "functions"
   },
   "hosting": {
+    "redirects": [
+      {
+        "source": "/hittat",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/tappat",
+        "destination": "/",
+        "type": 301
+      }
+    ],
     "public": "build",
     "ignore": [
       "firebase.json",
