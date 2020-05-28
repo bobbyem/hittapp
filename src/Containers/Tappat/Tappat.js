@@ -8,6 +8,7 @@ import ObjectSmall from "../../Components/ObjectSmall/ObjectSmall";
 import ObjectFull from "../../Components/ObjectFull/ObjectFull";
 import NoMatchImage from "../../img/QuestionGlass.png";
 import Summary from "../../Components/Summary/Summary"
+import TappatInstruction from "../../Components/TappatInstruction/TappatInstruction";
 const db = firebase.firestore();
 
 
@@ -136,9 +137,11 @@ export default class Tappat extends PureComponent {
                     <input type="text" className={classes.SearchBar} placeholder={this.state.placeholder} onChange={this.searchQueryChangeHandler}/>
                 </form>
                 <div className={classes.Tappat}>
+                    
                     {!this.state.selectedObject ? null : objectFull}
                     {!this.state.query ? null : object}
                     {this.state.query ? null : objectsSmall}
+                    <TappatInstruction/>
                     <Summary>{summaryObjects}</Summary>
                 </div>
             </Aux>

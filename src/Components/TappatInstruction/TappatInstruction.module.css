@@ -1,0 +1,48 @@
+.Instruction {
+    width: 900px;
+    height: 200px;
+    margin-top: 20px;
+    background-image: url(../../img/lostbagleftofcenter.png);
+    background-blend-mode: multiply;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    animation: fadeIn 1s;
+}
+
+.Instruction h1 {
+    font-weight: lighter;
+
+}
+
+.Instruction p {
+    width: 400px;
+}
+
+.Instruction span {
+    animation: fadeIn 2s infinite ease-in-out;
+    
+}
+
+/*Animations*/
+
+@keyframes slideRight {
+    from {transform: translateX(-400px); opacity: 0;}
+    to {transform: translateX(0px); opacity: 1;}
+    
+}
+
+@keyframes slideLeft {
+    from {transform: translateX(400px); opacity: 0;}
+    to {transform: translateX(0px); opacity: 1;}
+    
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+    
+}
