@@ -1,3 +1,10 @@
+.InstructionWrapper {
+    width: 100vw;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
 .Instruction {
     width: 900px;
     height: 200px;

@@ -1,17 +1,40 @@
 .Tappat {
-    width: 100%;
+    width: 100vw;
     justify-content: center;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
+    flex-wrap: wrap;
     box-sizing: border-box;
     padding: 0 10px;
+}
+
+.SearchBarWrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
 }
 
 .SearchBar {
     width: 900px;
     font-size: 25px;
     margin: 10px 0;
+    display: flex;
+    flex-flow: row;
+}
 
+.SearchBar form {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+}
+
+.SearchBar input {
+    width:100%;
+    font-size: 25px;
+}
+
+.Selection {
+    font-size: 25px;
 }
 
 .Object :hover{

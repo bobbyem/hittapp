@@ -10,6 +10,8 @@ function Hittat () {
     const [inputAmount, setInputAmount] = useState(null);
     const [inputDescription, setInputDescription] = useState(null);
     const [inputImage, setInputImage] = useState(null);
+    const [inputCategories] = useState(["Övrigt", "Elektronik", "Djur", "Kläder"]);
+    const [inputCategorySelected, setInputCategorySelected] = useState("Övrigt");
     
     
     useLayoutEffect(() => {
@@ -27,7 +29,8 @@ function Hittat () {
         let inputRef = {
             title: inputTitle,
             amount: inputAmount,
-            description: inputDescription
+            description: inputDescription,
+            category: inputCategorySelected
         };
         let file = inputImage;
         let storageRef = firebase.storage().ref();
@@ -49,7 +52,8 @@ function Hittat () {
                         title: inputRef.title,
                         amount: inputRef.amount,
                         description: inputRef.description,
-                        url: url
+                        url: url,
+                        category: inputRef.category
                     });
                     console.log("Upload Success")
                 });
@@ -61,6 +65,11 @@ function Hittat () {
     const titlehandler = (event) => {
         let titleInput = event.target.value;
         setInputTitle(titleInput);
+    }
+
+    const categorySelectionHandler = (event) => {
+        let selection = event.target.value;
+        setInputCategorySelected(selection);
     }
 
     const amountHandler = (event) => {
@@ -86,6 +95,9 @@ function Hittat () {
                         <label>Titel </label>
                         <input type="text" placeholder="Titel" onChange={titlehandler} required/>
                         <br/>
+                        <select onChange={categorySelectionHandler}>
+                        {[...inputCategories].map((element) => <option>{element}</option>)}
+                        </select>
                         <label>Antal</label>
                         <input type="number" placeholder="0" onChange={amountHandler} required/>
                         <br/>
