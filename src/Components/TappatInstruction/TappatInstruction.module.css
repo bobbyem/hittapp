@@ -53,3 +53,12 @@
     to {opacity: 1;}
     
 }
+
+/*Media Queries*/
+@media only screen and (max-width: 767px) {
+    .Instruction p {
+        width: 80%;
+    }
+
+
+}

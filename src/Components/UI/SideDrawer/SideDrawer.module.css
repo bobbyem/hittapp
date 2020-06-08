@@ -40,3 +40,14 @@ li:hover {
     height: 30px;
     margin-top: 5px;
 }
+
+/* Media Queries */
+@media only screen and (max-width: 767px) {
+    li, a {
+        font-size: 1.3rem;
+    }
+    .AccountIcon img{
+        height: 25px;
+        margin-top: 5px;
+    }
+}
